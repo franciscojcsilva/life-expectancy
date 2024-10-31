@@ -1,5 +1,7 @@
 # Foundations Learning Path Assignments
 
+[![Python package](https://github.com/francisco3511/lp-foundations/actions/workflows/python-package.yml/badge.svg)](https://github.com/francisco3511/lp-foundations/actions/workflows/python-package.yml)
+
 ## Introduction
 
 We are going to be using this project throughout the course.
