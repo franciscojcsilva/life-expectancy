@@ -27,3 +27,9 @@ fail_under = 80
 
 [tool.setuptools]
 packages = ["life_expectancy"]
+
+[tool.pylint."messages control"]
+disable = [
+   "missing-module-docstring",
+   "no-value-for-parameter"
+]
