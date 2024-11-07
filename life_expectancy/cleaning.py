@@ -5,22 +5,42 @@ import pandas as pd
 DATA_DIR = Path(__file__).parent / "data"
 
 
-def clean_data(country: str) -> None:
+def load_data() -> pd.DataFrame:
     """
-    Cleans life expectancy data by unpivoting and removing unwanted values.
-    Saves Portugal life expectancy records.
+    Loads EU life expectancy data .tsv file.
+
+    Returns
+    -------
+    pd.DataFrame
+        Output dataframe.
     """
 
-    df = pd.read_csv(
+    return pd.read_csv(
         DATA_DIR / "eu_life_expectancy_raw.tsv",
         sep='\t',
         header=0
     )
 
+
+def clean_data(expectancy_data: pd.DataFrame) -> pd.DataFrame:
+    """
+    Cleans life expectancy data by unpivoting and removing unwanted values.
+
+    Parameters
+    ----------
+    expectancy_data : pd.DataFrame
+        Main EU life expectancy historical records dataframe.
+
+    Returns
+    -------
+    pd.DataFrame
+        Processed life expectancy data.
+    """
+
     df = pd.melt(
-        df,
-        id_vars=df.columns[0],
-        value_vars=df.columns[1:],
+        expectancy_data,
+        id_vars=expectancy_data.columns[0],
+        value_vars=expectancy_data.columns[1:],
         value_name='value',
         var_name='year'
     )
@@ -36,14 +56,30 @@ def clean_data(country: str) -> None:
     df['value'] = df['value'].str.extract('([0-9]+[,./]*[0-9]*)').astype('float')
     df = df.dropna(subset=['value'])
 
-    df = df.loc[
-        df.region == country,
-        ['unit', 'sex', 'age', 'region', 'year', 'value']
-    ].to_csv(DATA_DIR / f"{country.lower()}_life_expectancy.csv", index=False)
+    return df[['unit', 'sex', 'age', 'region', 'year', 'value']]
+
+
+def save_data(data: pd.DataFrame, country: str) -> None:
+    """
+    Saves life expectancy dataframe for a given country as csv file.
+
+    Parameters
+    ----------
+    data : pd.DataFrame
+        Input data to save locally.
+    country : str
+        Country of the data subset we want to process.
+    """
+
+    df = data.loc[data.region == country, :]
+    df.to_csv(DATA_DIR / f"{country.lower()}_life_expectancy.csv", index=False)
 
 
 if __name__ == "__main__":  # pragma: no cover
     parser = argparse.ArgumentParser()
     parser.add_argument("-c", "--country", default="PT", action="store_true")
     args = parser.parse_args()
-    clean_data(args.country)
+
+    life_expectancy_data = load_data()
+    processed_expectancy_data = clean_data(life_expectancy_data)
+    save_data(processed_expectancy_data, args.country)
