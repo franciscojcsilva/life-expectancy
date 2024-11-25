@@ -1,5 +1,5 @@
 """Tests for the IO module"""
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 import pandas as pd
 
 from life_expectancy.data_io import load_life_expectancy_data, save_life_expectancy_data
@@ -15,9 +15,9 @@ def test_load_life_expectancy_data(eu_life_expectancy_raw):
         loaded_data, eu_life_expectancy_raw
     )
 
-
-def test_save_life_expectancy_data(pt_life_expectancy_expected):
-    """Test the save_data function using a mock for pd.DataFrame.to_csv"""
-    with patch.object(pd.DataFrame, 'to_csv') as mock_to_csv:
-        save_life_expectancy_data(FIXTURES_DIR, pt_life_expectancy_expected, "PT")
-        mock_to_csv.assert_called_once_with(FIXTURES_DIR / "pt_life_expectancy.csv", index=False)
+@patch("life_expectancy.data_io.pd.DataFrame.to_csv")
+def test_save_life_expectancy_data(to_csv: Mock, pt_life_expectancy_expected):
+    """Test the save_data function"""
+    to_csv.side_effect = lambda *args, **kwargs: print("saving data to CSV")
+    save_life_expectancy_data(FIXTURES_DIR, pt_life_expectancy_expected, "PT")
+    to_csv.assert_called_once_with(FIXTURES_DIR / "pt_life_expectancy.csv", index=False)

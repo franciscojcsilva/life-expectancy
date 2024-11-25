@@ -12,6 +12,9 @@ DATA_DIR = Path(__file__).parent / "data"
 
 
 def main() -> pd.DataFrame:
+    """
+    Main function to read, clean and save life expectancy data.
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument("-r", "--region", default="PT")
     args = parser.parse_args()
