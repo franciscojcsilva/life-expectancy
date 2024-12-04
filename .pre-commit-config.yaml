@@ -1,0 +1,26 @@
+repos:
+-   repo: https://github.com/psf/black
+    rev: 23.12.1
+    hooks:
+    -   id: black
+        language_version: python3
+        args: [--line-length=100]
+
+-   repo: https://github.com/pycqa/pylint
+    rev: v3.0.3
+    hooks:
+    -   id: pylint
+        language: system
+        args:
+        - --max-line-length=100
+        - --disable=missing-module-docstring,no-value-for-parameter
+
+-   repo: local
+    hooks:
+    -   id: pytest
+        name: pytest
+        entry: pytest
+        language: system  # Changed to system to use your local environment
+        types: [python]
+        pass_filenames: false
+        stages: [pre-commit]

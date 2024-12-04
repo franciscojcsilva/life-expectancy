@@ -20,12 +20,7 @@ from . import PROJECT_DIR
 
 def test_dependencies():
     """Test that the get_versions function return 4 values."""
-    deps = (
-        pd.__version__,
-        pytest.__version__,
-        pytest_cov.__version__,
-        pylint.__version__
-    )
+    deps = (pd.__version__, pytest.__version__, pytest_cov.__version__, pylint.__version__)
     assert len(deps) == 4
 
 

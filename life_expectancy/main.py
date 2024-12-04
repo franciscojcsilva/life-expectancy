@@ -1,17 +1,13 @@
 import argparse
 from pathlib import Path
-import pandas as pd
 
-from life_expectancy.data_io import (
-    load_life_expectancy_data,
-    save_life_expectancy_data
-)
+from life_expectancy.data_io import load_life_expectancy_data, save_life_expectancy_data
 from life_expectancy.cleaning import clean_data
 
 DATA_DIR = Path(__file__).parent / "data"
 
 
-def main() -> pd.DataFrame:
+def main() -> None:
     """
     Main function to read, clean and save life expectancy data.
     """

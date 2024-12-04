@@ -2,7 +2,7 @@ from pathlib import Path
 import pandas as pd
 
 
-def load_life_expectancy_data(data_dir) -> pd.DataFrame:
+def load_life_expectancy_data(data_dir: Path) -> pd.DataFrame:
     """
     Loads EU life expectancy data .tsv file.
 
@@ -17,11 +17,8 @@ def load_life_expectancy_data(data_dir) -> pd.DataFrame:
         Output dataframe.
     """
 
-    return pd.read_csv(
-        data_dir / "eu_life_expectancy_raw.tsv",
-        sep='\t',
-        header=0
-    )
+    return pd.read_csv(data_dir / "eu_life_expectancy_raw.tsv", sep="\t", header=0)
+
 
 def save_life_expectancy_data(data_dir: Path, data: pd.DataFrame, region: str) -> None:
     """
