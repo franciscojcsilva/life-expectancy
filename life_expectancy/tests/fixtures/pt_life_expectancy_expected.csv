@@ -1,4 +1,4 @@
-unit,sex,age,region,year,value
+unit,sex,age,country,year,life_expectancy
 YR,M,Y65,PT,2021,17.8
 YR,F,Y7,PT,2020,77.3
 YR,F,Y50,PT,2020,35.2
