@@ -28,7 +28,8 @@ include = '\.pyi?$'
 [tool.pylint."messages control"]
 disable = [
    "missing-module-docstring",
-   "no-value-for-parameter"
+   "no-value-for-parameter",
+   "too-few-public-methods"
 ]
 max-line-length = 100
 

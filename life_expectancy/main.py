@@ -16,7 +16,7 @@ def main() -> None:
     parser.add_argument("-r", "--region", default="PT", type=lambda x: Region[x])
     args = parser.parse_args()
 
-    life_expectancy_data = load_life_expectancy_data(DATA_DIR)
+    life_expectancy_data = load_life_expectancy_data(DATA_DIR / "eu_life_expectancy_raw.tsv")
     processed_expectancy_data = clean_data(life_expectancy_data, args.region)
     save_life_expectancy_data(DATA_DIR, processed_expectancy_data, args.region)
 

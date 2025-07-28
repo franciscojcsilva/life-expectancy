@@ -12,7 +12,7 @@ from . import FIXTURES_DIR
 def test_load_life_expectancy_data(eu_life_expectancy_raw: pd.DataFrame) -> None:
     """Run the `load_data` function and compare the output to the expected output"""
 
-    loaded_data = load_life_expectancy_data(FIXTURES_DIR)
+    loaded_data = load_life_expectancy_data(FIXTURES_DIR / "eu_life_expectancy_raw.tsv")
     pd.testing.assert_frame_equal(loaded_data, eu_life_expectancy_raw)
 
 

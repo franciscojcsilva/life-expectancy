@@ -1,25 +1,27 @@
 from pathlib import Path
+
 import pandas as pd
 
 from life_expectancy.regions import Region
+from life_expectancy.data_strategies import DataStrategyFactory
 
 
-def load_life_expectancy_data(data_dir: Path) -> pd.DataFrame:
+def load_life_expectancy_data(file_path: Path) -> pd.DataFrame:
     """
-    Loads EU life expectancy data .tsv file.
+    Loads EU life expectancy data using the appropriate strategy based on file extension.
 
     Parameters
     ----------
-    data_dir : Path
-        Path to the data directory.
+    file_name : str
+        Name of the file to load.
 
     Returns
     -------
     pd.DataFrame
         Output dataframe.
     """
-
-    return pd.read_csv(data_dir / "eu_life_expectancy_raw.tsv", sep="\t", header=0)
+    strategy = DataStrategyFactory.create_strategy(file_path)
+    return strategy.load(file_path)
 
 
 def save_life_expectancy_data(data_dir: Path, data: pd.DataFrame, region: Region) -> None:
