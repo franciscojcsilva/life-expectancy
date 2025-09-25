@@ -116,24 +116,6 @@ pytest --cov=life_expectancy
 pytest life_expectancy/tests/test_cleaning.py
 ```
 
-### Project Structure
-
-
-life_expectancy/
-├── data/ # Raw data files
-│ ├── eu_life_expectancy_raw.tsv
-│ └── eurostat_life_expect.zip
-├── tests/ # Test suite
-│ ├── fixtures/ # Test data
-│ ├── test_cleaning.py
-│ ├── test_data_io.py
-│ └── test_regions.py
-├── cleaning.py # Data cleaning pipeline
-├── data_io.py # Data I/O operations
-├── data_strategies.py # File loading strategies
-├── main.py # CLI entry point
-└── regions.py # Region definitions
-
 ## 📋 Requirements
 
 - **Python**: 3.8+
